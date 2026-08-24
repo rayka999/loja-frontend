@@ -1,0 +1,52 @@
+<div class="produtos-container">
+
+  <header class="produtos-header">
+    <h2>Lista de Produtos</h2>
+  </header>
+
+  <div class="produtos-grid">
+    @for (produto of produtos(); track produto.id) {
+      <article class="produto-card">
+
+        <div class="produto-imagem">
+          <img
+            [src]="produto.foto"
+            [alt]="produto.nome"
+          >
+        </div>
+
+        <div class="produto-info">
+
+          <span class="produto-marca">
+            {{ produto.marca }}
+          </span>
+
+          <h3>{{ produto.nome }}</h3>
+
+          <p class="produto-descricao">
+            {{ produto.descricao }}
+          </p>
+
+          <div class="produto-detalhes">
+            <div>
+              <span>Preço</span>
+              <strong>
+                {{ produto.preco | currency:'BRL' }}
+              </strong>
+            </div>
+
+            <div>
+              <span>Estoque</span>
+              <strong>
+                {{ produto.quantidade }} unidade(s)
+              </strong>
+            </div>
+          </div>
+
+        </div>
+
+      </article>
+    }
+  </div>
+
+</div>
