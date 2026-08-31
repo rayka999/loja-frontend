@@ -12,4 +12,7 @@ export class ProdutoService {
         return this.#http.get<Produto[]>(`${this.api}/produtos`)
     }
 
+    obterProdID(id:number):Observable<Produto>{
+        return this.#http.get<Produto>(`${this.api}/produtos/${id}`)
+    }
 }
