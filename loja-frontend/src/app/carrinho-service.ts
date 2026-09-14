@@ -23,13 +23,15 @@ export class CarrinhoService {
         );
     }
 
-    DimQtdItem(idItem:number,qtd:number){
-        this.itens.update(currentItens => 
+    DimQtdItem(idItem: number, qtd: number) {
+        this.itens.update(currentItens =>
             currentItens.map(item =>
-                item.id === idItem ? { ...item, quantidade: item.quantidade - qtd } : item
+            item.id === idItem
+                ? { ...item, quantidade: Math.max(1, item.quantidade - qtd) } //se não usar, o valor pode ser negativo ou 0
+                : item
             )
         );
-    }
+        }
 
     obterTotalCompra(){
         let total=0;
