@@ -115,6 +115,15 @@
   }
 }
 
+.buttonAdd{
+  background-color: #222;
+  color: #ffffff;
+  border-radius: 10px;
+  height: 2rem;
+  width: 150px;
+  margin: 0 auto;
+}
+
 @media (max-width: 600px) {
   .produtos-container {
     padding: 24px 16px;

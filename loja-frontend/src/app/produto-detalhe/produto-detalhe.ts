@@ -9,20 +9,19 @@ import { Produto } from '../../produto.model';
   templateUrl: './produto-detalhe.html',
 })
 export class ProdutoDetalhe implements OnInit{
+#produtoService = inject(ProdutoService);
+id = input<number>();
 
-  #produtoService = inject(ProdutoService);
-  id=input<number>()
+produto = signal<Produto|undefined>(undefined);
 
-  produto=signal<Produto | undefined>(undefined) 
+ngOnInit(): void {
+  const id = this.id();
 
-  ngOnInit(): void {
-    if (this.id() != undefined){
-      this.#produtoService.obterProdID(this.id()!).subscribe(
-        prod => {
-          this.produto.set(prod)
-        }
-      )
-    }
+  if (id !== undefined) {
+    this.#produtoService.obterProdID(id).subscribe(prod => {
+      this.produto.set(prod);
+    });
   }
+}
 
 }

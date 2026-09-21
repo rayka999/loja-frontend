@@ -6,32 +6,50 @@ export class CarrinhoService {
     readonly itens=signal<Item[]>([])
 
     addItem(item:Item){
-        this.itens.update(currentItens=> [...currentItens,item])
+        if (item){
+            let adicionados=this.itens()
+            let existe=false
+            adicionados.forEach(it=>{
+                if(it.produto===item.produto){
+                    this.AumQtdItem(item)
+                    existe=true
+                }
+            })
+            if(!existe){
+                this.itens().push(item)
+                return true
+            }
+        }
+        return false
     }
 
-    removerItem(idItem:number){
+    removerItem(Item:Item){
         this.itens.update(currentItens=>
-            currentItens.filter(item=> item.id !== idItem)
+            currentItens.filter(item=> item.produto !== Item.produto)
         )
     }
 
-    AumQtdItem(idItem: number,qtd:number) {
-        this.itens.update(currentItens => 
-            currentItens.map(item =>
-                item.id === idItem ? { ...item, quantidade: item.quantidade + qtd } : item
-            )
-        );
+    AumQtdItem(Item: Item):boolean {
+        if (Item){
+            let encontrado=this.itens().find(it=> it.produto===Item.produto)
+            if (encontrado){
+                encontrado.quantidade++
+                return true
+            }
+        }
+        return false
     }
 
-    DimQtdItem(idItem: number, qtd: number) {
-        this.itens.update(currentItens =>
-            currentItens.map(item =>
-            item.id === idItem
-                ? { ...item, quantidade: Math.max(1, item.quantidade - qtd) } //se não usar, o valor pode ser negativo ou 0
-                : item
-            )
-        );
+    DimQtdItem(Item:Item) {
+       if (Item){
+            let encontrado=this.itens().find(it=> it.produto===Item.produto)
+            if (encontrado){
+                encontrado.quantidade--
+                return true
+            }
         }
+        return false
+    }
 
     obterTotalCompra(){
         let total=0;
