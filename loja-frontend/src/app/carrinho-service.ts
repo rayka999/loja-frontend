@@ -3,59 +3,73 @@ import { Item } from './carrinho.model';
 
 @Service()
 export class CarrinhoService {
-    readonly itens=signal<Item[]>([])
-
-    addItem(item:Item){
-        if (item){
-            let adicionados=this.itens()
-            let existe=false
-            adicionados.forEach(it=>{
-                if(it.produto===item.produto){
-                    this.AumQtdItem(item)
-                    existe=true
-                }
-            })
-            if(!existe){
-                this.itens().push(item)
-                return true
-            }
-        }
-        return false
+   readonly itens = signal<Item[]>([]);
+  addItem(item: Item): boolean {
+    if (!item) {
+      return false;
     }
+    const encontrado = this.itens().find(
+      it => it.produto.id === item.produto.id
+    );
+    if (encontrado) {
+      return this.AumQtdItem(item);
+    }
+    this.itens.update(itens => [
+      ...itens,
+      item
+    ]);
+    return true;
+  }
 
-    removerItem(Item:Item){
-        this.itens.update(currentItens=>
-            currentItens.filter(item=> item.produto !== Item.produto)
+  AumQtdItem(item: Item): boolean {
+    const encontrado = this.itens().find(
+      it => it.produto.id === item.produto.id
+    );
+    if (!encontrado) {
+      return false;
+    }
+    this.itens.update(itens =>
+      itens.map(it =>
+        it.produto.id === item.produto.id
+          ? {
+              ...it,
+              quantidade: it.quantidade + 1
+            }
+          : it
+      )
+    );
+    return true;
+  }
+
+  removerItem(item: Item): void {
+    this.itens.update(itens =>
+      itens.filter(
+        it => it.produto.id !== item.produto.id
+      )
+    );
+  }
+
+  DimQtdItem(item: Item): boolean {
+    this.itens.update(itens =>
+      itens
+        .map(it =>
+          it.produto.id === item.produto.id
+            ? {
+                ...it,
+                quantidade: it.quantidade - 1
+              }
+            : it
         )
-    }
+        .filter(it => it.quantidade > 0)
+    );
+    return true;
+  }
 
-    AumQtdItem(Item: Item):boolean {
-        if (Item){
-            let encontrado=this.itens().find(it=> it.produto===Item.produto)
-            if (encontrado){
-                encontrado.quantidade++
-                return true
-            }
-        }
-        return false
-    }
-
-    DimQtdItem(Item:Item) {
-       if (Item){
-            let encontrado=this.itens().find(it=> it.produto===Item.produto)
-            if (encontrado){
-                encontrado.quantidade--
-                return true
-            }
-        }
-        return false
-    }
-
-    obterTotalCompra(){
-        let total=0;
-        this.itens().forEach(item => {
-            total+=(item.produto.preco*item.quantidade)
-        });
-        return total.toFixed(2);
-    }
+  obterTotalCompra(): string {
+    let total = 0;
+    this.itens().forEach(item => {
+      total += item.produto.preco * item.quantidade;
+    });
+    return total.toFixed(2);
+  }
 }

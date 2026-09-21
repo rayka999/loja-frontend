@@ -2,6 +2,8 @@
 
   <header class="produtos-header">
     <h2>Lista de Produtos</h2>
+    <app-exibe-carrinho></app-exibe-carrinho>
+    <p>Valor: <strong>{{ valor() | currency:'BRL' }}</strong></p>
   </header>
 
   <div class="produtos-grid">
@@ -47,7 +49,12 @@
 
         <hr>
 
-        <button class="buttonAdd" (click)="adicionar(produto)">Adicionar produto</button>
+        <button
+          class="buttonAdd"
+          (click)="adicionar(produto)"
+        >
+          Adicionar ao carrinho
+        </button>
 
       </article>
     }

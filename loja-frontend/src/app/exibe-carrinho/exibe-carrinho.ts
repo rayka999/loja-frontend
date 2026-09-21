@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, computed } from '@angular/core';
 import { CarrinhoService } from '../carrinho-service';
 
 @Component({
@@ -8,9 +8,12 @@ import { CarrinhoService } from '../carrinho-service';
   templateUrl: './exibe-carrinho.html',
 })
 export class ExibeCarrinho {
-  #Itens=inject(CarrinhoService)
+   #carrinho = inject(CarrinhoService);
 
-  qtdTotalItens(){
-    
-  }
+   qtdTotalItens = computed(() =>
+    this.#carrinho.itens().reduce(
+      (total, item) => total + item.quantidade,
+      0
+    )
+  );
 }

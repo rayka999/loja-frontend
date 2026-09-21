@@ -4,15 +4,17 @@ import { ProdutoService } from '../../produto.service';
 import { Produto } from '../../produto.model';
 import { CarrinhoService } from '../carrinho-service';
 import { Item } from '../carrinho.model';
+import { ExibeCarrinho } from '../exibe-carrinho/exibe-carrinho';
 
 @Component({
   selector: 'app-produto',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, ExibeCarrinho],
   templateUrl: './produtos.html',
   styleUrl: './produtos.scss'
 })
 export class ProdutoComponent {
+  valor=signal<number>(0)
 
   #produtoService = inject(ProdutoService);
   produtos=signal<Produto[]>([])
@@ -20,6 +22,7 @@ export class ProdutoComponent {
 
   constructor(){
     this.carregarTodos()
+    this.carregarValor()
   }
 
   carregarTodos():void{
@@ -28,7 +31,12 @@ export class ProdutoComponent {
     })
   }
 
-  
+  carregarValor(): void {
+  this.valor.set(
+    Number(this.#carrinho.obterTotalCompra())
+  );
+}
+
 adicionar(Produto:Produto) {
   const produto = Produto;
   if (produto) {
@@ -38,6 +46,7 @@ adicionar(Produto:Produto) {
       quantidade: 1
     };
     this.#carrinho.addItem(it);
+    this.carregarValor()
   }
   console.log(this.#carrinho.itens());
 }
