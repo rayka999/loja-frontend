@@ -1,0 +1,121 @@
+.carrinho-container {
+  width: 100%;
+  max-width: 900px;
+  margin: 40px auto;
+  padding: 0 24px;
+}
+
+.carrinho-container h2 {
+  margin-bottom: 24px;
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.carrinho-container table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.carrinho-container th,
+.carrinho-container td {
+  padding: 16px 20px;
+  text-align: left;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.carrinho-container th {
+  background-color: #252525;
+  color: #fff;
+  font-weight: 600;
+}
+
+.carrinho-container tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.carrinho-container tbody tr:hover {
+  background-color: #f8f8f8;
+}
+
+.carrinho-container td:nth-child(2) {
+  text-align: center;
+}
+
+.carrinho-container td:nth-child(2) button {
+  width: 32px;
+  height: 32px;
+  margin: 0 10px;
+  border: none;
+  border-radius: 6px;
+  background-color: #252525;
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.carrinho-container td:nth-child(2) button:hover {
+  background-color: #444;
+}
+
+.carrinho-container td:nth-child(3) {
+  text-align: center;
+}
+
+.carrinho-container td:nth-child(3) button {
+  padding: 8px 14px;
+  border: none;
+  border-radius: 7px;
+  background-color: #dc3545;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.carrinho-container td:nth-child(3) button:hover {
+  background-color: #b02a37;
+}
+
+.carrinho-container > p {
+  margin-top: 20px;
+  padding: 16px 20px;
+  text-align: right;
+  font-size: 1.2rem;
+  font-weight: 700;
+  background-color: #f5f5f5;
+  border-radius: 10px;
+}
+
+@media (max-width: 600px) {
+  .carrinho-container {
+    padding: 0 12px;
+    margin-top: 24px;
+  }
+
+  .carrinho-container h2 {
+    font-size: 1.3rem;
+  }
+
+  .carrinho-container th,
+  .carrinho-container td {
+    padding: 12px 8px;
+    font-size: 0.9rem;
+  }
+
+  .carrinho-container td:nth-child(2) button {
+    width: 28px;
+    height: 28px;
+    margin: 0 4px;
+  }
+
+  .carrinho-container td:nth-child(3) button {
+    padding: 7px 9px;
+    font-size: 0.8rem;
+  }
+}

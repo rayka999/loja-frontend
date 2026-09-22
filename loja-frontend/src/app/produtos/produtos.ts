@@ -5,11 +5,12 @@ import { Produto } from '../../produto.model';
 import { CarrinhoService } from '../carrinho-service';
 import { Item } from '../carrinho.model';
 import { ExibeCarrinho } from '../exibe-carrinho/exibe-carrinho';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-produto',
   standalone: true,
-  imports: [CommonModule, ExibeCarrinho],
+  imports: [CommonModule, ExibeCarrinho,RouterLink],
   templateUrl: './produtos.html',
   styleUrl: './produtos.scss'
 })
@@ -50,4 +51,5 @@ adicionar(Produto:Produto) {
   }
   console.log(this.#carrinho.itens());
 }
+
 }

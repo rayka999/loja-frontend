@@ -1,0 +1,38 @@
+<div class="carrinho-container">
+  <h2>Listagem dos itens</h2>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th>Quantidade</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (item of itens(); track item.produto.id) {
+        <tr>
+          <td>{{ item.produto.nome }}</td>
+
+          <td>
+            <button (click)="dimItem(item.produto.id)">−</button>
+            {{ item.quantidade }}
+            <button (click)="aumItem(item.produto.id)">+</button>
+          </td>
+
+          <td>
+
+            <button (click)="remItem(item.produto.id)">
+              Remover
+            </button>
+          </td>
+        </tr>
+      }
+    </tbody>
+  </table>
+
+  <p>
+    Total: R$ {{ obterTotal() }}
+  </p>
+</div>
